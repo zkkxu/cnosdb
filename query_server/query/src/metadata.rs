@@ -177,7 +177,7 @@ impl MetaData for LocalCatalogMeta {
     }
 
     fn show_database(&self) -> Result<Output> {
-        let dbs = self.catalog.schema_names();
+        let dbs = self.engine.list_databases().unwrap();
 
         let schema = Arc::new(Schema::new(vec![Field::new(
             "Database",
@@ -194,16 +194,14 @@ impl MetaData for LocalCatalogMeta {
 
     fn show_table(&self, name: &str) -> Result<Output> {
         let mut database_name = name;
-        if database_name == "" {
+        if database_name.is_empty() {
             database_name = self.database_name.as_str()
         }
 
         match self.catalog.schema(database_name) {
-            None => {
-                return Err(MetadataError::DatabaseNotExists {
-                    database_name: database_name.to_string(),
-                })
-            }
+            None => Err(MetadataError::DatabaseNotExists {
+                database_name: database_name.to_string(),
+            }),
             Some(db_cfgs) => {
                 let schema = Arc::new(Schema::new(vec![Field::new(
                     "Table",
@@ -211,11 +209,9 @@ impl MetaData for LocalCatalogMeta {
                     false,
                 )]));
 
-                let batch = RecordBatch::try_new(
-                    schema,
-                    vec![Arc::new(StringArray::from(db_cfgs.table_names()))],
-                )
-                .unwrap();
+                let tables = self.engine.list_tables(database_name).unwrap();
+                let batch = RecordBatch::try_new(schema, vec![Arc::new(StringArray::from(tables))])
+                    .unwrap();
 
                 let batches = vec![Arc::new(batch)];
 
@@ -226,11 +222,9 @@ impl MetaData for LocalCatalogMeta {
 
     fn describe_database(&self, name: &str) -> Result<Output> {
         match self.engine.get_db_schema(name) {
-            None => {
-                return Err(MetadataError::DatabaseNotExists {
-                    database_name: name.to_string(),
-                })
-            }
+            None => Err(MetadataError::DatabaseNotExists {
+                database_name: name.to_string(),
+            }),
             Some(db_cfg) => {
                 let schema = Arc::new(Schema::new(vec![
                     Field::new("TTL", DataType::Utf8, false),
@@ -269,7 +263,7 @@ impl MetaData for LocalCatalogMeta {
         let table_name;
         let database_name;
 
-        if table.contains(".") {
+        if table.contains('.') {
             (database_name, table_name) = table.split_once('.').unwrap();
         } else {
             table_name = table;
@@ -281,11 +275,9 @@ impl MetaData for LocalCatalogMeta {
             .get_table_schema(database_name, table_name)
             .unwrap()
         {
-            None => {
-                return Err(MetadataError::TableNotExists {
-                    table_name: table.to_string(),
-                })
-            }
+            None => Err(MetadataError::TableNotExists {
+                table_name: table.to_string(),
+            }),
             Some(table_schema) => {
                 let schema = Arc::new(Schema::new(vec![
                     Field::new("fieldname", DataType::Utf8, false),
@@ -308,7 +300,7 @@ impl MetaData for LocalCatalogMeta {
                     let field_name = item.name.as_str();
                     let field_type;
                     let mut tag = false;
-                    let compression;
+
                     match item.column_type {
                         ColumnType::Tag => {
                             field_type = "STRING";
@@ -323,20 +315,20 @@ impl MetaData for LocalCatalogMeta {
                         ColumnType::Field(ValueType::Unknown) => field_type = "UNKNOW",
                     }
 
-                    match Encoding::from(item.codec) {
-                        Encoding::Default => compression = "Default",
-                        Encoding::Null => compression = "Null",
-                        Encoding::Delta => compression = "Delta",
-                        Encoding::Quantile => compression = "Quantile",
-                        Encoding::Gzip => compression = "Gzip",
-                        Encoding::Bzip => compression = "Bzip",
-                        Encoding::Gorilla => compression = "Gorilla",
-                        Encoding::Snappy => compression = "Snappy",
-                        Encoding::Zstd => compression = "Zstd",
-                        Encoding::Zlib => compression = "Zlib",
-                        Encoding::BitPack => compression = "BitPack",
-                        Encoding::Unknown => compression = "Unknown",
-                    }
+                    let compression = match Encoding::from(item.codec) {
+                        Encoding::Default => "Default",
+                        Encoding::Null => "Null",
+                        Encoding::Delta => "Delta",
+                        Encoding::Quantile => "Quantile",
+                        Encoding::Gzip => "Gzip",
+                        Encoding::Bzip => "Bzip",
+                        Encoding::Gorilla => "Gorilla",
+                        Encoding::Snappy => "Snappy",
+                        Encoding::Zstd => "Zstd",
+                        Encoding::Zlib => "Zlib",
+                        Encoding::BitPack => "BitPack",
+                        Encoding::Unknown => "Unknown",
+                    };
                     name_column.push(field_name);
                     type_column.push(field_type);
                     tags.push(tag);

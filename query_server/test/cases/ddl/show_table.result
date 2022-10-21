@@ -1,0 +1,59 @@
+-- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase; --
+200 OK
+
+
+-- EXECUTE SQL: CREATE DATABASE createdatabase; --
+200 OK
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test0; --
+200 OK
+
+
+-- EXECUTE SQL: CREATE TABLE createdatabase.test0( column1 BIGINT CODEC(DELTA), column2 STRING CODEC(GZIP), column3 BIGINT UNSIGNED CODEC(NULL), column4 BOOLEAN, column5 DOUBLE CODEC(GORILLA), TAGS(column6, column7)); --
+200 OK
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test1; --
+200 OK
+
+
+-- EXECUTE SQL: CREATE TABLE createdatabase.test1( column1 BIGINT CODEC(DELTA), column2 STRING CODEC(GZIP), column3 BIGINT UNSIGNED CODEC(NULL), column4 BOOLEAN, column5 DOUBLE CODEC(GORILLA), TAGS(column6, column7)); --
+200 OK
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test2; --
+200 OK
+
+
+-- EXECUTE SQL: CREATE TABLE createdatabase.test2( column1 BIGINT CODEC(DELTA), column2 STRING CODEC(GZIP), column3 BIGINT UNSIGNED CODEC(NULL), column4 BOOLEAN, column5 DOUBLE CODEC(GORILLA), TAGS(column6, column7)); --
+200 OK
+
+
+-- EXECUTE SQL: SHOW TABLES ON createdatabase; --
+200 OK
+Table
+test1
+test0
+test2
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test0; --
+200 OK
+
+
+-- EXECUTE SQL: SHOW TABLES ON createdatabase; --
+200 OK
+Table
+test1
+test2
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test2; --
+200 OK
+
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test1; --
+200 OK
+
+
