@@ -4,8 +4,10 @@ use crate::tseries_family::SuperVersion;
 use crate::tsm::DataBlock;
 use crate::{Options, TimeRange, TsKv};
 use async_trait::async_trait;
+use datafusion::prelude::Column;
+use models::predicate::domain::{ColumnDomains, PredicateRef};
 use models::schema::{DatabaseSchema, TableSchema};
-use models::{FieldId, FieldInfo, SchemaFieldId, SeriesId, SeriesKey, Tag, Timestamp, ValueType};
+use models::{ColumnId, FieldId, FieldInfo, SeriesId, SeriesKey, Tag, Timestamp, ValueType};
 use protos::{
     kv_service::{WritePointsRpcRequest, WritePointsRpcResponse, WriteRowsRpcRequest},
     models as fb_models,
@@ -45,6 +47,10 @@ pub trait Engine: Send + Sync + Debug {
     fn create_table(&self, schema: &TableSchema) -> Result<()>;
 
     fn drop_table(&self, database: &str, table: &str) -> Result<()>;
+
+    fn list_databases(&self) -> Result<Vec<String>>;
+
+    fn list_tables(&self, database: &str) -> Result<Vec<String>>;
 
     fn delete_series(
         &self,
@@ -120,6 +126,14 @@ impl Engine for MockEngine {
         Ok(())
     }
 
+    fn list_databases(&self) -> Result<Vec<String>> {
+        todo!()
+    }
+
+    fn list_tables(&self, database: &str) -> Result<Vec<String>> {
+        todo!()
+    }
+
     fn get_db_schema(&self, name: &str) -> Option<DatabaseSchema> {
         Some(DatabaseSchema::new(name))
     }
@@ -146,6 +160,15 @@ impl Engine for MockEngine {
             tab.to_string(),
             Default::default(),
         )))
+    }
+
+    fn get_series_id_by_filter(
+        &self,
+        db: &str,
+        tab: &str,
+        filter: &ColumnDomains<String>,
+    ) -> IndexResult<Vec<u64>> {
+        Ok(vec![])
     }
 
     fn get_series_id_list(&self, db: &str, tab: &str, tags: &[Tag]) -> IndexResult<Vec<u64>> {

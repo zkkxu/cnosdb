@@ -1,6 +1,7 @@
 use std::time::Duration;
 use std::{collections::HashMap, panic, sync::Arc};
 
+use datafusion::prelude::Column;
 use flatbuffers::FlatBufferBuilder;
 use futures::stream::SelectNextSome;
 use futures::FutureExt;
@@ -479,6 +480,32 @@ impl Engine for TsKv {
         }
         self.version_set.write().create_db(schema.clone());
         Ok(())
+    }
+
+    fn list_databases(&self) -> Result<Vec<String>> {
+        let version_set = self.version_set.read();
+        let dbs = version_set.get_all_db();
+
+        let mut db = Vec::new();
+        for (name, _) in dbs.iter() {
+            db.push(name.clone())
+        }
+
+        Ok(db)
+        // Ok(dbs.into_keys().map(|x| x.as_str()).collect())
+    }
+
+    fn list_tables(&self, database: &str) -> Result<Vec<String>> {
+        if let Some(db) = self.version_set.read().get_db(database) {
+            // let tables = db.read().get_index().list_tables();
+            // Ok( tables )
+            Ok(db.read().get_index().list_tables())
+        } else {
+            error!("Database {}, not found", database);
+            Err(Error::DatabaseNotFound {
+                database: database.to_string(),
+            })
+        }
     }
 
     fn get_db_schema(&self, name: &str) -> Option<DatabaseSchema> {
