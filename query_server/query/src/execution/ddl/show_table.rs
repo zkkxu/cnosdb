@@ -21,15 +21,15 @@ impl DDLDefinitionTask for ShowTableTask {
         &self,
         query_state_machine: QueryStateMachineRef,
     ) -> Result<Output, ExecutionError> {
-        return show_table(
+        show_table(
             self.database_name.as_str(),
             query_state_machine.catalog.clone(),
-        );
+        )
     }
 }
 
 fn show_table(database_name: &str, catalog: MetaDataRef) -> Result<Output, ExecutionError> {
-    return catalog
+    catalog
         .show_table(database_name)
-        .context(execution::MetadataSnafu);
+        .context(execution::MetadataSnafu)
 }
