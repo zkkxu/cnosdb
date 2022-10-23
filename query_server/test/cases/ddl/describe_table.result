@@ -37,3 +37,6 @@ column5,DOUBLE,false,Gorilla
 -- EXECUTE SQL: DESCRIBE TABLE test2; --
 422 Unprocessable Entity
 {"error_code":"0100000","error_message":"Error executiong query: Failed to do execute statement, err:Failed to do execution. err: Metadata operator err: Table test2 not exists."}
+
+-- EXECUTE SQL: DROP TABLE IF EXISTS test0; --
+200 OK

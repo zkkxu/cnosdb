@@ -33,4 +33,5 @@ rows
 200 OK
 time,column6,column7,column1,column2,column3,column4,column5
 
-
+-- EXECUTE SQL: DROP DATABASE dropdatabase; --
+200 OK

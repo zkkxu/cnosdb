@@ -27,3 +27,4 @@ CREATE TABLE test0(
     column5 DOUBLE CODEC(GORILLA),
     TAGS(column6, column7));
 
+DROP DATABASE IF EXISTS createdatabase;

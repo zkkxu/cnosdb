@@ -27,3 +27,9 @@ Database
 createdatabase
 createdatabase3
 public
+
+-- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase; --
+200 OK
+
+-- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase2; --
+200 OK

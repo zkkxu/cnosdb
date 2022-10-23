@@ -37,3 +37,7 @@ SHOW TABLES ON createdatabase;
 DROP TABLE IF EXISTS createdatabase.test0;
 
 SHOW TABLES ON createdatabase;
+
+DROP TABLE IF EXISTS createdatabase.test2;
+
+DROP TABLE IF EXISTS createdatabase.test1;
