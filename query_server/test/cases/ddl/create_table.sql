@@ -97,3 +97,5 @@ CREATE TABLE IF NOT EXISTS test7(
     TAGS(column6, column7));
 
 DROP DATABASE IF EXISTS createdatabase;
+
+DROP DATABASE IF EXISTS createtable;
