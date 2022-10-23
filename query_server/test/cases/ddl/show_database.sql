@@ -14,4 +14,4 @@ SHOW DATABASES;
 
 DROP DATABASE IF EXISTS createdatabase;
 
-DROP DATABASE IF EXISTS createdatabase2;
+DROP DATABASE IF EXISTS createdatabase3;
