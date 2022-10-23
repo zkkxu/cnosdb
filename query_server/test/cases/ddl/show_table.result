@@ -25,9 +25,9 @@
 -- EXECUTE SQL: SHOW TABLES ON createdatabase; --
 200 OK
 Table
-test2
 test0
 test1
+test2
 
 -- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test0; --
 200 OK
@@ -35,8 +35,8 @@ test1
 -- EXECUTE SQL: SHOW TABLES ON createdatabase; --
 200 OK
 Table
-test2
 test1
+test2
 
 -- EXECUTE SQL: DROP TABLE IF EXISTS createdatabase.test2; --
 200 OK

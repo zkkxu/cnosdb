@@ -13,10 +13,10 @@
 -- EXECUTE SQL: SHOW DATABASES; --
 200 OK
 Database
-createdatabase
-createdatabase3
 public
 createdatabase2
+createdatabase3
+createdatabase
 
 -- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase2; --
 200 OK
@@ -24,9 +24,9 @@ createdatabase2
 -- EXECUTE SQL: SHOW DATABASES; --
 200 OK
 Database
-createdatabase
-createdatabase3
 public
+createdatabase3
+createdatabase
 
 -- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase; --
 200 OK
