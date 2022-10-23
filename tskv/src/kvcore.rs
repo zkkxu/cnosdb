@@ -492,13 +492,10 @@ impl Engine for TsKv {
         }
 
         Ok(db)
-        // Ok(dbs.into_keys().map(|x| x.as_str()).collect())
     }
 
     fn list_tables(&self, database: &str) -> Result<Vec<String>> {
         if let Some(db) = self.version_set.read().get_db(database) {
-            // let tables = db.read().get_index().list_tables();
-            // Ok( tables )
             Ok(db.read().get_index().list_tables())
         } else {
             error!("Database {}, not found", database);

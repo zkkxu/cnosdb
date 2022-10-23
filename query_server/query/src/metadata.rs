@@ -202,7 +202,7 @@ impl MetaData for LocalCatalogMeta {
             None => Err(MetadataError::DatabaseNotExists {
                 database_name: database_name.to_string(),
             }),
-            Some(db_cfgs) => {
+            Some(_db_cfgs) => {
                 let schema = Arc::new(Schema::new(vec![Field::new(
                     "Table",
                     DataType::Utf8,

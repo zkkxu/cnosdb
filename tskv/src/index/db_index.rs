@@ -214,7 +214,6 @@ impl DBIndex {
                     return Err(IndexError::NotFoundField);
                 }
             }
-            // info.set_schema_id(self.table_schema_id(info.table()));
             Ok(())
         } else {
             Err(IndexError::NotFoundField)
@@ -330,11 +329,6 @@ impl DBIndex {
         }
 
         tables
-        // self.table_schema
-        //     .read()
-        //     .into_keys()
-        //     .map(|x| x.as_str())
-        //     .collect()
     }
 
     pub fn get_table_schema_by_series_id(
