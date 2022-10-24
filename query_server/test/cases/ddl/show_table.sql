@@ -1,3 +1,4 @@
+--#SORT=true
 DROP DATABASE IF EXISTS createdatabase;
 
 CREATE DATABASE createdatabase;

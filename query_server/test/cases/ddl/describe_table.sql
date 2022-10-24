@@ -1,3 +1,9 @@
+--#SORT=true
+--#DATABASE=createtable
+DROP DATABASE IF EXISTS createtable;
+
+CREATE DATABASE createtable;
+
 DROP TABLE IF EXISTS test0;
 
 CREATE TABLE test0(
@@ -25,3 +31,5 @@ DROP TABLE IF EXISTS test2;
 DESCRIBE TABLE test2;
 
 DROP TABLE IF EXISTS test0;
+
+DROP DATABASE createtable;

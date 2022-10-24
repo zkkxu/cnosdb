@@ -17,10 +17,10 @@
 -- EXECUTE SQL: SHOW DATABASES; --
 200 OK
 Database
-createdatabase
 createdatabase3
-public
 createdatabase2
+createdatabase
+public
 
 
 -- EXECUTE SQL: DROP DATABASE IF EXISTS createdatabase2; --
@@ -30,8 +30,8 @@ createdatabase2
 -- EXECUTE SQL: SHOW DATABASES; --
 200 OK
 Database
-createdatabase
 createdatabase3
+createdatabase
 public
 
 

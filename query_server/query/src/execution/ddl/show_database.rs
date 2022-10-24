@@ -19,10 +19,10 @@ impl DDLDefinitionTask for ShowDatabaseTask {
         &self,
         query_state_machine: QueryStateMachineRef,
     ) -> Result<Output, ExecutionError> {
-        show_database(query_state_machine.catalog.clone())
+        show_databases(query_state_machine.catalog.clone())
     }
 }
 
-fn show_database(catalog: MetaDataRef) -> Result<Output, ExecutionError> {
-    catalog.show_database().context(execution::MetadataSnafu)
+fn show_databases(catalog: MetaDataRef) -> Result<Output, ExecutionError> {
+    catalog.show_databases().context(execution::MetadataSnafu)
 }

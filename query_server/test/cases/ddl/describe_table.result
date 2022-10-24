@@ -1,3 +1,11 @@
+-- EXECUTE SQL: DROP DATABASE IF EXISTS createtable; --
+200 OK
+
+
+-- EXECUTE SQL: CREATE DATABASE createtable; --
+200 OK
+
+
 -- EXECUTE SQL: DROP TABLE IF EXISTS test0; --
 200 OK
 
@@ -8,7 +16,7 @@
 
 -- EXECUTE SQL: DESCRIBE TABLE test0; --
 200 OK
-fieldname,type,istag,compression
+FIELDNAME,TYPE,ISTAG,COMPRESSION
 time,TIMESTAMP,false,Default
 column6,STRING,true,Default
 column7,STRING,true,Default
@@ -25,7 +33,7 @@ column5,DOUBLE,false,Gorilla
 
 -- EXECUTE SQL: DESCRIBE TABLE test1; --
 200 OK
-fieldname,type,istag,compression
+FIELDNAME,TYPE,ISTAG,COMPRESSION
 time,TIMESTAMP,false,Default
 column6,STRING,true,Default
 column7,STRING,true,Default
@@ -46,6 +54,10 @@ column5,DOUBLE,false,Gorilla
 -- ERROR:  --
 
 -- EXECUTE SQL: DROP TABLE IF EXISTS test0; --
+200 OK
+
+
+-- EXECUTE SQL: DROP DATABASE createtable; --
 200 OK
 
 
